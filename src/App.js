@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const APIEndPoint = 'https://t42v7vbhd2.execute-api.us-east-1.amazonaws.com/Staging/'
 // const APIEndPoint = 'https://httpbin.org/post'
 // const APIEndPoint = 'http://localhost:8080/cors'
 
 function App() {
+  const [data, setData] = useState([])
+
   const makeAPICall = async () => {
     try {
       const response = await fetch(APIEndPoint, {
@@ -14,6 +16,7 @@ function App() {
         method: "POST"
       });
       const data = await response.json();
+      setData(data);
       console.log({ data })
     }
     catch (e) {
@@ -39,6 +42,7 @@ function App() {
         >
           Learn React
         </a>
+           {data.message}
       </header>
     </div>
   );
